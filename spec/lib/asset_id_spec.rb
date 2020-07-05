@@ -100,12 +100,6 @@ RSpec.describe AssetID do
     end
   end
 
-  describe '.with_checksum' do
-    subject { asset_id.with_checksum }
-
-    it { is_expected.to eq(561_337) }
-  end
-
   describe '.encode' do
     subject { asset_id.encode }
 

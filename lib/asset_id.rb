@@ -17,12 +17,8 @@ class AssetID
     @id = parse_id(input)
   end
 
-  def with_checksum
-    "#{checksum}#{id}".to_i
-  end
-
   def encode
-    with_checksum.to_s.split('').map { |char| SegmentMappings::PATTERNS[char.to_i] }.join
+    "#{checksum}#{id}".split('').map { |char| SegmentMappings.pattern(char.to_i) }.join
   end
 
   def to_image(file_name: nil)
