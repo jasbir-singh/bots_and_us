@@ -11,18 +11,39 @@ RSpec.describe AssetID do
     context 'when the id is invalid' do
       let(:id) { 99999 }
 
-      it 'raises an error' do
-        expect {
-          asset_id
-        }.to raise_error(AssetID::InvalidAssetID)
+      context 'when the id is an integer' do
+        it 'raises an error' do
+          expect {
+            asset_id
+          }.to raise_error(AssetID::InvalidAssetID)
+        end
+      end
+
+      context 'when the id is a string' do
+        let(:id) { '99999' }
+        it 'raises an error' do
+          expect {
+            asset_id
+          }.to raise_error(AssetID::InvalidAssetID)
+        end
       end
     end
 
-    context 'when the id is valid' do
-      let(:id) { 9999 }
+    context 'valid id' do
+      context 'when the id is a number' do
+        let(:id) { 9999 }
 
-      it 'does not raise an error' do
-        expect(asset_id).to be_a_kind_of(described_class)
+        it 'does not raise an error' do
+          expect(asset_id).to be_a_kind_of(described_class)
+        end
+      end
+
+      context 'when the id is a string' do
+        let(:id) { '9999' }
+
+        it 'does not raise an error' do
+          expect(asset_id).to be_a_kind_of(described_class)
+        end
       end
     end
   end

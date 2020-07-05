@@ -13,12 +13,8 @@ class AssetID
   MAXIMUM_ID = 9999
   CHECKSUM_MODULO = 97
 
-  def initialize(id)
-    if (id > MAXIMUM_ID) || (id < MINIMUM_ID)
-      raise InvalidAssetID
-    end
-
-    @id = id
+  def initialize(input)
+    @id = parse_id(input)
   end
 
   def with_checksum
@@ -38,5 +34,16 @@ class AssetID
     id.digits.reverse.each_with_index.map do |digit, index|
       digit * (10**index)
     end.sum % CHECKSUM_MODULO
+  end
+
+  private
+
+  def parse_id(input)
+    output = Integer(input)
+    raise InvalidAssetID if (output > MAXIMUM_ID) || (output < MINIMUM_ID)
+
+    output
+  rescue ArgumentError
+    raise InvalidAssetID
   end
 end
