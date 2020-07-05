@@ -1,4 +1,10 @@
 class SegmentMappings
+  class InvalidDigit < StandardError
+    def message
+      'Only digits between 0 and 9 are vaild input.'
+    end
+  end
+
   ZERO  = '01110111'
   ONE   = '01000010'
   TWO   = '10110110'
@@ -22,4 +28,12 @@ class SegmentMappings
     8 => EIGHT,
     9 => NINE
   }.freeze
+
+  def self.pattern(digit)
+    if !digit.is_a?(Integer) || digit > 9 || digit < 0
+      raise InvalidDigit
+    end
+
+    PATTERNS[digit]
+  end
 end
