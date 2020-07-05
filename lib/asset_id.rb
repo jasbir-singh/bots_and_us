@@ -4,11 +4,20 @@ require './lib/asset_id_image'
 require './lib/segment_mappings'
 
 class AssetID
+  class InvalidAssetID < StandardError
+  end
+
   attr_reader :id
 
+  MINIMUM_ID = 0
+  MAXIMUM_ID = 9999
   CHECKSUM_MODULO = 97
 
   def initialize(id)
+    if (id > MAXIMUM_ID) || (id < MINIMUM_ID)
+      raise InvalidAssetID
+    end
+
     @id = id
   end
 

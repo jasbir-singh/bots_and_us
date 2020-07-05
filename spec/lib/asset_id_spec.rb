@@ -7,6 +7,26 @@ RSpec.describe AssetID do
   let(:id) { 1337 }
   let(:asset_id) { AssetID.new(id) }
 
+  describe 'contstructor' do
+    context 'when the id is invalid' do
+      let(:id) { 99999 }
+
+      it 'raises an error' do
+        expect {
+          asset_id
+        }.to raise_error(AssetID::InvalidAssetID)
+      end
+    end
+
+    context 'when the id is valid' do
+      let(:id) { 9999 }
+
+      it 'does not raise an error' do
+        expect(asset_id).to be_a_kind_of(described_class)
+      end
+    end
+  end
+
   describe '.checksum' do
     subject { asset_id.checksum }
 
