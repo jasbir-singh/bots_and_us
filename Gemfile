@@ -6,4 +6,5 @@ ruby '2.7.0'
 
 gem 'pry-byebug'
 gem 'rspec'
+gem 'chunky_png'
 gem 'rubocop'
