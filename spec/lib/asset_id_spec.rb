@@ -51,7 +51,15 @@ RSpec.describe AssetID do
   describe '.checksum' do
     subject { asset_id.checksum }
 
-    it { is_expected.to eq(56) }
+    context 'when id is 1337' do
+      it { is_expected.to eq(56) }
+    end
+
+    context 'when id is 0' do
+      let(:id) { 0 }
+
+      it { is_expected.to eq(0) }
+    end
   end
 
   describe '.with_checksum' do
