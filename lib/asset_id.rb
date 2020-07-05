@@ -1,33 +1,7 @@
 # frozen_string_literal: true
 
-class DisplayMappings
-  ZERO  = '01110111'
-  ONE   = '01000010'
-  TWO   = '10110110'
-  THREE = '11010110'
-  FOUR  = '11000011'
-  FIVE  = '11010101'
-  SIX   = '11110101'
-  SEVEN = '01000110'
-  EIGHT = '11110111'
-  NINE  = '11010111'
-
-  REPRESENTATIONS = {
-    1 => ONE,
-    2 => TWO,
-    3 => THREE,
-    4 => FOUR,
-    5 => FIVE,
-    6 => SIX,
-    7 => SEVEN,
-    8 => EIGHT,
-    9 => NINE
-  }.freeze
-
-  def self.mapping(i)
-    REPRESENTATIONS[i]
-  end
-end
+require './lib/asset_id_image'
+require './lib/segment_mappings'
 
 class AssetID
   attr_reader :id
@@ -43,7 +17,11 @@ class AssetID
   end
 
   def encode
-    with_checksum.to_s.split('').map { |char| DisplayMappings::REPRESENTATIONS[char.to_i] }.join
+    with_checksum.to_s.split('').map { |char| SegmentMappings::PATTERNS[char.to_i] }.join
+  end
+
+  def to_image(file_name: nil)
+    AssetIDImage.new(encode).generate(file_name || "#{with_checksum}.png")
   end
 
   # c = (a1 + (10 * a2) + (100 * a3) + (1000 * a4)) mod 97
