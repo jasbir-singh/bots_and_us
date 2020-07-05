@@ -48,7 +48,7 @@ RSpec.describe AssetID do
     end
   end
 
-  describe '.checksum' do
+  describe '#checksum' do
     subject { asset_id.checksum }
 
     describe 'cases when checksum is zero' do
@@ -100,7 +100,7 @@ RSpec.describe AssetID do
     end
   end
 
-  describe '.encode' do
+  describe '#encode' do
     subject { asset_id.encode }
 
     describe 'when id is 1337' do

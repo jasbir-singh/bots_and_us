@@ -21,7 +21,7 @@ RSpec.describe SegmentMappings do
     end
   end
 
-  describe '#pattern' do
+  describe '.pattern' do
     subject { described_class.pattern(digit) }
 
     context 'with invalid input' do
