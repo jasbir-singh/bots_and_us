@@ -51,14 +51,52 @@ RSpec.describe AssetID do
   describe '.checksum' do
     subject { asset_id.checksum }
 
+    describe 'cases when checksum is zero' do
+      context 'when id is 0' do
+        let(:id) { 0 }
+
+        it { is_expected.to eq(0) }
+      end
+
+      context 'when id is 79' do
+        let(:id) { 79 }
+
+        it { is_expected.to eq(0) }
+      end
+
+      context 'when id is 584' do
+        let(:id) { 584 }
+
+        it { is_expected.to eq(0) }
+      end
+
+      context 'when id is 5541' do
+        let(:id) { 5541 }
+
+        it { is_expected.to eq(0) }
+      end
+    end
+
     context 'when id is 1337' do
       it { is_expected.to eq(56) }
     end
 
     context 'when id is 0' do
-      let(:id) { 0 }
+      let(:id) { 1 }
 
-      it { is_expected.to eq(0) }
+      it { is_expected.to eq(1) }
+    end
+
+    context 'when id is 9' do
+      let(:id) { 9 }
+
+      it { is_expected.to eq(9) }
+    end
+
+    context 'when id is 10' do
+      let(:id) { 10 }
+
+      it { is_expected.to eq(1) }
     end
   end
 
@@ -69,9 +107,12 @@ RSpec.describe AssetID do
   end
 
   describe '.encode' do
-    let(:result) { '110101011111010101000010110101101101011001000110' }
     subject { asset_id.encode }
 
-    it { is_expected.to eq(result) }
+    describe 'when id is 1337' do
+      let(:result) { '110101011111010101000010110101101101011001000110' }
+
+      it { is_expected.to eq(result) }
+    end
   end
 end
