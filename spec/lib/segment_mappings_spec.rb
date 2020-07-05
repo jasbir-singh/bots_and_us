@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 require 'pry'
 
 RSpec.describe SegmentMappings do
-  describe "hash map PATTERNS" do
+  describe 'hash map PATTERNS' do
     let(:mapping) { SegmentMappings::PATTERNS }
 
     it 'has values for all the digits' do
@@ -9,14 +11,14 @@ RSpec.describe SegmentMappings do
     end
 
     it 'has all the values of length 8' do
-      mapping.each do |_,val|
+      mapping.each do |_, val|
         expect(val.length).to eq(8)
       end
     end
 
     it 'all the values have 4th bit off' do
-      mapping.each do |_,val|
-        expect(val[4]).to eq('0')
+      mapping.each do |_, val|
+        expect(val[4]).to eq(0)
       end
     end
   end
@@ -28,9 +30,9 @@ RSpec.describe SegmentMappings do
       let(:digit) { '0' }
 
       it 'raises an error' do
-        expect{
+        expect do
           subject
-        }.to raise_error(SegmentMappings::InvalidDigit)
+        end.to raise_error(SegmentMappings::InvalidDigit)
       end
     end
   end

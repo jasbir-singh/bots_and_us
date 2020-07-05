@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SegmentMappings
   class InvalidDigit < StandardError
     def message
@@ -5,16 +7,16 @@ class SegmentMappings
     end
   end
 
-  ZERO  = '01110111'
-  ONE   = '01000010'
-  TWO   = '10110110'
-  THREE = '11010110'
-  FOUR  = '11000011'
-  FIVE  = '11010101'
-  SIX   = '11110101'
-  SEVEN = '01000110'
-  EIGHT = '11110111'
-  NINE  = '11010111'
+  ZERO  = [0, 1, 1, 1, 0, 1, 1, 1].freeze
+  ONE   = [0, 1, 0, 0, 0, 0, 1, 0].freeze
+  TWO   = [1, 0, 1, 1, 0, 1, 1, 0].freeze
+  THREE = [1, 1, 0, 1, 0, 1, 1, 0].freeze
+  FOUR  = [1, 1, 0, 0, 0, 0, 1, 1].freeze
+  FIVE  = [1, 1, 0, 1, 0, 1, 0, 1].freeze
+  SIX   = [1, 1, 1, 1, 0, 1, 0, 1].freeze
+  SEVEN = [0, 1, 0, 0, 0, 1, 1, 0].freeze
+  EIGHT = [1, 1, 1, 1, 0, 1, 1, 1].freeze
+  NINE  = [1, 1, 0, 1, 0, 1, 1, 1].freeze
 
   PATTERNS = {
     0 => ZERO,
@@ -30,9 +32,7 @@ class SegmentMappings
   }.freeze
 
   def self.pattern(digit)
-    if !digit.is_a?(Integer) || digit > 9 || digit < 0
-      raise InvalidDigit
-    end
+    raise InvalidDigit if !digit.is_a?(Integer) || digit > 9 || digit < 0
 
     PATTERNS[digit]
   end
