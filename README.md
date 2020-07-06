@@ -59,3 +59,11 @@ Then generate the image
 asset_id = AssetID.new([1, 3, 3, 7])
 asset_id.generate_image
 ```
+
+# PNG Files
+
+The output of the following has been saved in the folder `png_files`.
+
+```sh
+./asset_id_encoder.rb test.txt
+```
