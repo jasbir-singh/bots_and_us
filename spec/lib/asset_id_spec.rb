@@ -122,7 +122,7 @@ RSpec.describe AssetID do
     end
   end
 
-  describe '#to_image' do
+  describe '#generate_image' do
     let(:image_double) { double(AssetIDImage) }
     let(:encoded_bits) { '110101011111010101000010110101101101011001000110'.split('').map(&:to_i) }
 
@@ -130,7 +130,7 @@ RSpec.describe AssetID do
       expect(AssetIDImage).to receive(:new).with(encoded_bits: encoded_bits).and_return(image_double)
       expect(image_double).to receive(:generate).with('1337.png')
 
-      asset_id.to_image
+      asset_id.generate_image
     end
   end
 

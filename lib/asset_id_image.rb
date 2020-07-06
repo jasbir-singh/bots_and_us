@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require 'chunky_png'
-require 'pry'
 
 class AssetIDImage
   attr_reader :bits, :image

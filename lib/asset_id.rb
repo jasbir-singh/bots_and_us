@@ -21,7 +21,7 @@ class AssetID
     end.flatten
   end
 
-  def to_image(file_name: nil)
+  def generate_image(file_name: nil)
     image.generate(file_name || "#{id.join}.png")
   end
 
