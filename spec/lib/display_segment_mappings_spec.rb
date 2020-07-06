@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require 'pry'
+require './lib/display_segment_mappings'
 
-RSpec.describe SegmentMappings do
+RSpec.describe DisplaySegmentMappings do
   describe 'hash map PATTERNS' do
-    let(:mapping) { SegmentMappings::PATTERNS }
+    let(:mapping) { DisplaySegmentMappings::PATTERNS }
 
     it 'has values for all the digits' do
       expect(mapping.keys). to eq((0..9).to_a)
@@ -32,7 +32,7 @@ RSpec.describe SegmentMappings do
       it 'raises an error' do
         expect do
           subject
-        end.to raise_error(SegmentMappings::InvalidDigit)
+        end.to raise_error(DisplaySegmentMappings::InvalidDigit)
       end
     end
   end

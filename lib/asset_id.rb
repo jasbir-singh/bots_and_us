@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require './lib/asset_id_image'
-require './lib/segment_mappings'
+require './lib/display_segment_mappings'
 
 class AssetID
   class InvalidAssetID < StandardError
@@ -17,7 +17,7 @@ class AssetID
 
   def encode
     "#{checksum}#{id.join}".split('').map do |char|
-      SegmentMappings.pattern(char.to_i)
+      DisplaySegmentMappings.pattern(char.to_i)
     end.flatten
   end
 

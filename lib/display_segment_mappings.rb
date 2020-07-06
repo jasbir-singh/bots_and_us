@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class SegmentMappings
+class DisplaySegmentMappings
   class InvalidDigit < StandardError
     def message
       'Only digits between 0 and 9 are vaild input.'
