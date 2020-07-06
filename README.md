@@ -1,25 +1,61 @@
-# Specification
-## Non-functional requirements
+# Approach
 
-Non-functional requirements
-	• You should include appropriate documentation about your code.
-	• Your code should follow best practices and a consistent coding style.
-	• Your submission should include whatever test cases you consider appropri-ate.
+## Why ruby?
 
-## Functional requirements
+- Good support for PNG libraries (ChunkyPNG, OilyPNG, RMagick, etc..).
+- Performance should be adequate for the given task.
 
-1. Given a text file containing a list of unique, four-digit numerical asset IDs in a text file format, calculate a two-digit checksum for each ID and add it as a prefix to the ID to generate a six-digit code.
+## Design approach
 
-Each individual asset ID is represented as a 4-digit number between 0 and 9999. A simple checksum can be implemented by using modular arithmetic with a base of 97 to calculate two check digits. The checksum c of a number a with 4 digits can be calculated as:
+### Classes
+- `AssetID` - It encapsulates the logic validating, generating checksum, and encoding the asset id.
+For representing bit strings, I chose to use array of bits everywhere for consistency.
 
+- `AssetIDIMage` - It encapsulates the logic for converting an asset id to a png image. It uses the library `chunky_png` (pure ruby implementation) for generating pngs (which might not potentially scale if we are generating a lot of PNGs).
+
+- `DisplaySegmentMappings` - It handles the logic for encoding each digit to a 8 bit array. I have worked all bit array mappings manually.
+
+### Improvements/TODOs
+
+- Bit array mappings have been worked out manually encoded as array bits. A DSL for building the mappings might be less error prone.
+
+A DSL might look something like this.
+```ruby
+seven = EightBitArray.new do |bits|
+	bits.on(1, 5, 6)
+end
 ```
-c = (a1 + (10 * a2) + (100 * a3) + (1000 * a4)) mod 97
+
+or 
+
+```ruby
+seven = EightBitArray.new do |bits|
+	bits.on(1)
+	bits.on(5)
+	bits.on(6)
+end
+```
+- Add integration test for testing that the generated png is actually correct.
+
+# How to run the code?
+
+## Running via command line
+
+```sh
+./asset_id_encoder.rb test.txt
 ```
 
-For example, the checksum for the asset ID 1337 can be calculated as follows:
+## Generating via ruby script
 
-```
-(1 + (10 * 3) + (100 * 3) + (1000 * 7)) mod 97 = 7331 mod 97 = 56
+Load class `AssetID`
+
+```ruby
+require './lib/asset_id'
 ```
 
-This can be prefixed to the original asset ID to give the six-digit checksummed code 561337.
+Then generate the image
+
+```ruby
+asset_id = AssetID.new([1, 3, 3, 7])
+asset_id.generate_image
+```
