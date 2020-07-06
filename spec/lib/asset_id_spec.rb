@@ -138,9 +138,28 @@ RSpec.describe AssetID do
     subject { asset_id.encode }
 
     describe 'when id is 1337' do
-      let(:encoded_bits) { '110101011111010101000010110101101101011001000110'.split('').map(&:to_i) }
+      let(:encoded_bits) { make_bit_array(bit_string: '110101011111010101000010110101101101011001000110') }
 
       it { is_expected.to eq(encoded_bits) }
     end
+
+    describe 'when id 3333' do
+      let(:id) { [3, 3, 3, 3] }
+      let(:encoded_bits) { make_bit_array(bit_string: ["11010110","11010101", *'11010110' * 4].join) }
+
+      it { is_expected.to eq(encoded_bits) }
+    end
+
+
+    describe 'when id 0000', wip: true do
+      let(:id) { [0, 0, 0, 0] }
+      let(:encoded_bits) { make_bit_array(bit_string: (DisplaySegmentMappings::ZERO * 6).join) }
+
+      it { is_expected.to eq(encoded_bits) }
+    end
+  end
+
+  def make_bit_array(bit_string:)
+    bit_string.chars.map(&:to_i)
   end
 end
