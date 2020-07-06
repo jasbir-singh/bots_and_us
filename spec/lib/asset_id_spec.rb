@@ -65,7 +65,7 @@ RSpec.describe AssetID do
   end
 
   describe '#checksum' do
-    subject { asset_id.checksum }
+    subject { asset_id.send(:checksum) }
 
     describe 'cases when checksum is zero' do
       context 'when id is 0' do

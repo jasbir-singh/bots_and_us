@@ -25,13 +25,13 @@ class AssetID
     image.generate(file_name || "#{id.join}.png")
   end
 
+  private
+
   def checksum
     id.each_with_index.map do |digit, index|
       digit * (10**index)
     end.sum % CHECKSUM_MODULO
   end
-
-  private
 
   def image
     AssetIDImage.new(encoded_bits: encode)
